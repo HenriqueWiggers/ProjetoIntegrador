@@ -1,0 +1,12 @@
+com\br\projeto_integrador\controllers\PedidoController.class
+com\br\projeto_integrador\exceptions\RecursoNãoEncontradoException.class
+com\br\projeto_integrador\services\CoifaService.class
+com\br\projeto_integrador\models\enums\StatusPedido.class
+com\br\projeto_integrador\models\Pedido.class
+com\br\projeto_integrador\repositories\CoifaRepository.class
+com\br\projeto_integrador\controllers\CoifaController.class
+com\br\projeto_integrador\services\PedidoService.class
+com\br\projeto_integrador\models\Coifa.class
+com\br\projeto_integrador\repositories\PedidoRepository.class
+com\br\projeto_integrador\Startup.class
+com\br\projeto_integrador\models\DTO\AlteraStatusDTO.class
