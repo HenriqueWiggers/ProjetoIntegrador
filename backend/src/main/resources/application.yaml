@@ -4,8 +4,8 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/projeto_integrador?useTimezone=true&serverTimezone=UTC
-    username: user
+    url: jdbc:mysql://mysql:3306/projeto-integrador?useTimezone=true&serverTimezone=UTC
+    username: root
     password: 12345678
     hikari:
       initializationFailTimeout: 60000
