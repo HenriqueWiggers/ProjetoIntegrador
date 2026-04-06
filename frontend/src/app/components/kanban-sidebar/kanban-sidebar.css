@@ -1,0 +1,107 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  min-width: 260px;
+  background: #1e1e2e;
+  height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+  border-right: 1px solid #2e2e42;
+  overflow-y: auto;
+}
+
+.btn-new-order {
+  width: 100%;
+  padding: 10px;
+  background: #4f8ef7;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: background 0.2s;
+}
+
+.btn-new-order:hover {
+  background: #3a78e0;
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.order-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: #2a2a3e;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.order-item:hover {
+  background: #33334a;
+}
+
+.order-item.selected {
+  border-color: #4f8ef7;
+  background: #2e3a5c;
+}
+
+.order-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #e0e0f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.order-status {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 2px 6px;
+  align-self: flex-start;
+}
+
+.status-pago {
+  background: #1a4731;
+  color: #4ade80;
+}
+
+.status-cancelado {
+  background: #4a1a1a;
+  color: #f87171;
+}
+
+.status-nao-iniciado {
+  background: #4a3a1a;
+  color: #fbbf24;
+}
+
+.status-produzido {
+  background: #1a3a4a;
+  color: #38bdf8;
+}
+
+.status-instalado {
+  background: #2a1a4a;
+  color: #a78bfa;
+}
+
+.empty-list {
+  color: #666;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 24px;
+}

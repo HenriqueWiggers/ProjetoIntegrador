@@ -1,0 +1,22 @@
+<div class="sidebar">
+  <button class="btn-new-order" (click)="onNewOrder()">+ New Order</button>
+
+  <div class="order-list">
+    @for (order of orders; track order.idPedido) {
+      <div
+        class="order-item"
+        [ngClass]="{ selected: isSelected(order) }"
+        (click)="selectOrder(order)"
+      >
+        <span class="order-name">{{ order.nomCliente }}</span>
+        <span class="order-status" [ngClass]="getStatusClass(order.statusPedido)">
+          {{ order.statusPedido }}
+        </span>
+      </div>
+    }
+
+    @if (orders.length === 0) {
+      <p class="empty-list">No orders found.</p>
+    }
+  </div>
+</div>

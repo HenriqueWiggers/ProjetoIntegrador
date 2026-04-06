@@ -1,0 +1,103 @@
+.form-container {
+  padding: 32px;
+  max-width: 700px;
+}
+
+.form-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #e0e0f0;
+  margin: 0 0 24px;
+}
+
+.form-row {
+  margin-bottom: 16px;
+}
+
+.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #a0a0c0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+input,
+select,
+textarea {
+  padding: 8px 12px;
+  background: #2a2a3e;
+  border: 1px solid #3a3a55;
+  border-radius: 6px;
+  color: #e0e0f0;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #4f8ef7;
+}
+
+input.invalid,
+select.invalid {
+  border-color: #f87171;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.error {
+  font-size: 11px;
+  color: #f87171;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn-save {
+  background: #4f8ef7;
+  color: #fff;
+}
+
+.btn-delete {
+  background: #e74c3c;
+  color: #fff;
+}
+
+/* dark number input arrows */
+input[type='number']::-webkit-inner-spin-button {
+  opacity: 0.5;
+}
