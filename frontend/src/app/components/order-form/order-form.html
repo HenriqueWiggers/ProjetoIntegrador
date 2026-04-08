@@ -1,52 +1,52 @@
 <div class="form-container">
-  <h2 class="form-title">{{ isEditing ? 'Edit Order' : 'New Order' }}</h2>
+  <h2 class="form-title">{{ isEditing ? 'Editar Pedido' : 'Novo Pedido' }}</h2>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
     <div class="form-row">
       <div class="form-group">
-        <label for="nomCliente">Customer Name *</label>
+        <label for="nomCliente">Nome do Cliente *</label>
         <input id="nomCliente" type="text" formControlName="nomCliente"
-               placeholder="Full name" [class.invalid]="isInvalid('nomCliente')" />
+               placeholder="Nome completo" [class.invalid]="isInvalid('nomCliente')" />
         @if (isInvalid('nomCliente')) {
-          <span class="error">Customer name is required.</span>
+          <span class="error">Nome do cliente é obrigatório.</span>
         }
       </div>
     </div>
 
     <div class="form-row two-cols">
       <div class="form-group">
-        <label for="foneCliente">Phone *</label>
+        <label for="foneCliente">Telefone *</label>
         <input id="foneCliente" type="text" formControlName="foneCliente"
-               placeholder="e.g. 48999990000" [class.invalid]="isInvalid('foneCliente')" />
+               placeholder="Ex: 48999990000" [class.invalid]="isInvalid('foneCliente')" />
         @if (isInvalid('foneCliente')) {
-          <span class="error">Phone is required.</span>
+          <span class="error">Telefone é obrigatório.</span>
         }
       </div>
 
       <div class="form-group">
-        <label for="foneCliente2">Phone 2</label>
+        <label for="foneCliente2">Telefone 2</label>
         <input id="foneCliente2" type="text" formControlName="foneCliente2"
-               placeholder="Optional" />
+               placeholder="Opcional" />
       </div>
     </div>
 
     <div class="form-row two-cols">
       <div class="form-group">
-        <label for="dataPedido">Order Date *</label>
+        <label for="dataPedido">Data do Pedido *</label>
         <input id="dataPedido" type="date" formControlName="dataPedido"
                [class.invalid]="isInvalid('dataPedido')" />
         @if (isInvalid('dataPedido')) {
-          <span class="error">Order date is required.</span>
+          <span class="error">Data do pedido é obrigatória.</span>
         }
       </div>
 
       <div class="form-group">
-        <label for="dataEntrega">Delivery Date *</label>
+        <label for="dataEntrega">Data de Entrega *</label>
         <input id="dataEntrega" type="date" formControlName="dataEntrega"
                [class.invalid]="isInvalid('dataEntrega')" />
         @if (isInvalid('dataEntrega')) {
-          <span class="error">Delivery date is required.</span>
+          <span class="error">Data de entrega é obrigatória.</span>
         }
       </div>
     </div>
@@ -56,36 +56,36 @@
         <label for="statusPedido">Status *</label>
         <select id="statusPedido" formControlName="statusPedido">
           @for (status of statuses; track status) {
-            <option [value]="status">{{ status }}</option>
+            <option [value]="status">{{ statusLabel(status) }}</option>
           }
         </select>
       </div>
 
       <div class="form-group">
-        <label for="preco">Price (R$) *</label>
+        <label for="preco">Preço (R$) *</label>
         <input id="preco" type="number" formControlName="preco" min="0" step="0.01"
                [class.invalid]="isInvalid('preco')" />
         @if (isInvalid('preco')) {
-          <span class="error">Valid price is required.</span>
+          <span class="error">Informe um preço válido.</span>
         }
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group">
-        <label for="obsPedido">Notes</label>
+        <label for="obsPedido">Observações</label>
         <textarea id="obsPedido" formControlName="obsPedido" rows="3"
-                  placeholder="Delivery instructions, observations..."></textarea>
+                  placeholder="Instruções de entrega, observações..."></textarea>
       </div>
     </div>
 
     <div class="form-actions">
       <button type="submit" class="btn btn-save">
-        {{ isEditing ? 'Update Order' : 'Create Order' }}
+        {{ isEditing ? 'Atualizar Pedido' : 'Criar Pedido' }}
       </button>
       @if (isEditing) {
         <button type="button" class="btn btn-delete" (click)="onDelete()">
-          Delete Order
+          Excluir Pedido
         </button>
       }
     </div>

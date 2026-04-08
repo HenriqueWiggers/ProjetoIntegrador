@@ -55,8 +55,10 @@ export class App implements OnInit {
   onDeleteOrder(id: number): void {
     this.orderService.deleteOrder(id).subscribe({
       next: () => {
-        this.loadOrders();
-        this.selectedOrder.set(null);
+        this.orders.update(list => list.filter(o => o.idPedido !== id));
+        if (this.selectedOrder()?.idPedido === id) {
+          this.selectedOrder.set(null);
+        }
       },
       error: (err) => console.error('Failed to delete order', err)
     });

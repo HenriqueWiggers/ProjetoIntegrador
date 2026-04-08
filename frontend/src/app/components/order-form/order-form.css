@@ -43,6 +43,7 @@ textarea {
   border-radius: 6px;
   color: #e0e0f0;
   font-size: 14px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
   outline: none;
   transition: border-color 0.2s;
 }
@@ -97,7 +98,6 @@ textarea {
   color: #fff;
 }
 
-/* dark number input arrows */
 input[type='number']::-webkit-inner-spin-button {
   opacity: 0.5;
 }

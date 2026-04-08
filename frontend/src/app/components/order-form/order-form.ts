@@ -71,6 +71,17 @@ export class OrderFormComponent implements OnChanges {
     }
   }
 
+  statusLabel(status: string): string {
+    const labels: Record<string, string> = {
+      NAO_INICIADO: 'Não Iniciado',
+      PRODUZIDO: 'Produzido',
+      INSTALADO: 'Instalado',
+      PAGO: 'Pago',
+      CANCELADO: 'Cancelado'
+    };
+    return labels[status] ?? status;
+  }
+
   isInvalid(field: string): boolean {
     const control = this.form.get(field);
     return !!(control?.invalid && control?.touched);
