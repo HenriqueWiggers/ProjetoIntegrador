@@ -1,6 +1,7 @@
 .form-container {
   padding: 32px;
   max-width: 700px;
+  font-family: 'FonteFormulario', Arial, sans-serif;
 }
 
 .form-title {
@@ -43,7 +44,7 @@ textarea {
   border-radius: 6px;
   color: #e0e0f0;
   font-size: 14px;
-  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-family: 'FonteFormulario', Arial, sans-serif;
   outline: none;
   transition: border-color 0.2s;
 }
@@ -78,6 +79,7 @@ textarea {
   padding: 10px 24px;
   border: none;
   border-radius: 6px;
+  font-family: 'FonteFormulario', Arial, sans-serif;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
