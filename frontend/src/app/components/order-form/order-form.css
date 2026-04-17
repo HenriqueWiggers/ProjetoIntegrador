@@ -100,6 +100,25 @@ textarea {
   color: #fff;
 }
 
+.btn-coifa {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  color: #a0a0c0;
+  border: 1px dashed #3a3a55;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-coifa:hover {
+  border-color: #4f8ef7;
+  color: #4f8ef7;
+}
+
 input[type='number']::-webkit-inner-spin-button {
   opacity: 0.5;
 }

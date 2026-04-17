@@ -8,10 +8,18 @@
   />
 
   <main class="main-content">
-    <app-order-form
-      [selectedOrder]="selectedOrder()"
-      (saveOrder)="onSaveOrder($event)"
-      (deleteOrder)="onDeleteOrder($event)"
-    />
+    @if (currentView() === 'pedidos') {
+      <app-order-form
+        [selectedOrder]="selectedOrder()"
+        (saveOrder)="onSaveOrder($event)"
+        (deleteOrder)="onDeleteOrder($event)"
+        (adicionarCoifa)="onNavigateToCoifa()"
+      />
+    }
+    @if (currentView() === 'coifa') {
+      <app-coifa-form
+        (voltar)="onVoltarParaPedidos()"
+      />
+    }
   </main>
 </div>

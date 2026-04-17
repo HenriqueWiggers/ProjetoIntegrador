@@ -1,0 +1,154 @@
+.coifa-container {
+  padding: 32px;
+  max-width: 700px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+}
+
+.coifa-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.btn-voltar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid #3a3a55;
+  border-radius: 6px;
+  color: #a0a0c0;
+  font-size: 13px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-voltar:hover {
+  border-color: #4f8ef7;
+  color: #4f8ef7;
+}
+
+.coifa-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #e0e0f0;
+  margin: 0;
+}
+
+.coifa-subtitle {
+  font-size: 13px;
+  color: #7070a0;
+  margin-bottom: 32px;
+}
+
+.dimension-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.dimension-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #252538;
+  border: 1px solid #2e2e42;
+  border-radius: 10px;
+  padding: 20px 16px;
+}
+
+.dimension-icon {
+  font-size: 22px;
+  color: #4f8ef7;
+  margin-bottom: 4px;
+}
+
+.dimension-icon.axis {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.bocal-section {
+  margin-bottom: 28px;
+}
+
+.bocal-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #7070a0;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 12px;
+}
+
+.bocal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #a0a0c0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+input {
+  padding: 8px 12px;
+  background: #1e1e2e;
+  border: 1px solid #3a3a55;
+  border-radius: 6px;
+  color: #e0e0f0;
+  font-size: 15px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus {
+  border-color: #4f8ef7;
+}
+
+input.invalid {
+  border-color: #f87171;
+}
+
+.error {
+  font-size: 11px;
+  color: #f87171;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  padding: 10px 28px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn-salvar {
+  background: #4f8ef7;
+  color: #fff;
+}
+
+input[type='number']::-webkit-inner-spin-button {
+  opacity: 0.5;
+}

@@ -22,6 +22,7 @@ export class OrderFormComponent implements OnChanges {
   @Input() selectedOrder: Order | null = null;
   @Output() saveOrder = new EventEmitter<Order>();
   @Output() deleteOrder = new EventEmitter<number>();
+  @Output() adicionarCoifa = new EventEmitter<void>();
 
   statuses = ORDER_STATUSES;
 
@@ -63,6 +64,10 @@ export class OrderFormComponent implements OnChanges {
     }
 
     this.saveOrder.emit(orderData);
+  }
+
+  onAdicionarCoifa(): void {
+    this.adicionarCoifa.emit();
   }
 
   onDelete(): void {
