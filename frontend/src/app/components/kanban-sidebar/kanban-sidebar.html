@@ -22,9 +22,14 @@
         </div>
 
         <div class="card-body">
-          <span class="order-status" [ngClass]="getStatusClass(order.statusPedido)">
-            {{ getStatusLabel(order.statusPedido) }}
-          </span>
+          <div class="status-group">
+            <span class="order-status" [ngClass]="getStatusClass(order.statusPedido)">
+              {{ getStatusLabel(order.statusPedido) }}
+            </span>
+            @if (order.pago) {
+              <span class="badge-pago">Pago</span>
+            }
+          </div>
           <span class="order-price">{{ formatPrice(order.preco) }}</span>
         </div>
 

@@ -5,11 +5,20 @@
 
     <div class="form-row">
       <div class="form-group">
-        <label for="nomCliente">Nome do Cliente *</label>
+        <div class="label-row">
+          <label for="nomCliente">Nome do Cliente *</label>
+          <span class="char-count" [class.char-limit]="nomClienteLength >= 30">
+            {{ nomClienteLength }}/30
+          </span>
+        </div>
         <input id="nomCliente" type="text" formControlName="nomCliente"
-               placeholder="Nome completo" [class.invalid]="isInvalid('nomCliente')" />
+               placeholder="Nome completo" maxlength="30"
+               [class.invalid]="isInvalid('nomCliente')" />
         @if (isInvalid('nomCliente')) {
-          <span class="error">Nome do cliente é obrigatório.</span>
+          <span class="error">
+            @if (form.get('nomCliente')?.errors?.['required']) { Nome do cliente é obrigatório. }
+            @if (form.get('nomCliente')?.errors?.['maxlength']) { Máximo de 30 caracteres. }
+          </span>
         }
       </div>
     </div>
@@ -18,24 +27,41 @@
       <div class="form-group">
         <label for="foneCliente">Telefone *</label>
         <input id="foneCliente" type="text" formControlName="foneCliente"
-               placeholder="Ex: 48999990000" [class.invalid]="isInvalid('foneCliente')" />
+               placeholder="(48) 99999-0000"
+               [class.invalid]="isInvalid('foneCliente')"
+               (input)="onPhoneInput($event, 'foneCliente')" />
         @if (isInvalid('foneCliente')) {
-          <span class="error">Telefone é obrigatório.</span>
+          <span class="error">Informe um telefone válido: (XX) XXXXX-XXXX.</span>
         }
       </div>
 
       <div class="form-group">
         <label for="foneCliente2">Telefone 2</label>
         <input id="foneCliente2" type="text" formControlName="foneCliente2"
-               placeholder="Opcional" />
+               placeholder="(48) 99999-0000"
+               (input)="onPhoneInput($event, 'foneCliente2')" />
       </div>
     </div>
 
     <div class="form-row two-cols">
+
       <div class="form-group">
-        <label for="dataPedido">Data do Pedido *</label>
-        <input id="dataPedido" type="date" formControlName="dataPedido"
-               [class.invalid]="isInvalid('dataPedido')" />
+        <label>Data do Pedido *</label>
+        @if (!dataPedidoEditavel) {
+          <div class="date-display" [class.invalid]="isInvalid('dataPedido')">
+            <span>{{ formatDateDisplay(form.get('dataPedido')?.value) }}</span>
+            <button type="button" class="btn-edit-date" (click)="dataPedidoEditavel = true" title="Editar data">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </button>
+          </div>
+        } @else {
+          <input id="dataPedido" type="date" formControlName="dataPedido"
+                 [class.invalid]="isInvalid('dataPedido')"
+                 (change)="onDataSelecionada()" />
+        }
         @if (isInvalid('dataPedido')) {
           <span class="error">Data do pedido é obrigatória.</span>
         }
@@ -59,6 +85,12 @@
             <option [value]="status">{{ statusLabel(status) }}</option>
           }
         </select>
+        @if (showPagoCheckbox) {
+          <label class="pago-checkbox">
+            <input type="checkbox" formControlName="pago" />
+            <span>Pago</span>
+          </label>
+        }
       </div>
 
       <div class="form-group">

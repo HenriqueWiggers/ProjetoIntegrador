@@ -104,6 +104,13 @@
   gap: 8px;
 }
 
+.status-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
 .order-status {
   font-size: 10px;
   font-weight: 700;
@@ -111,6 +118,17 @@
   letter-spacing: 0.5px;
   border-radius: 4px;
   padding: 3px 7px;
+}
+
+.badge-pago {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+  padding: 3px 7px;
+  background: #1a4731;
+  color: #4ade80;
 }
 
 .order-price {

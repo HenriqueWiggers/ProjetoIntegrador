@@ -8,8 +8,9 @@ export interface Order {
   dataEntrega: string;
   statusPedido: string;
   preco: number;
+  pago?: boolean;
   coifa?: any;
 }
 
-export const ORDER_STATUSES = ['NAO_INICIADO', 'PRODUZIDO', 'INSTALADO', 'PAGO', 'CANCELADO'] as const;
+export const ORDER_STATUSES = ['NAO_INICIADO', 'PRODUZIDO', 'INSTALADO', 'CANCELADO'] as const;
 export type OrderStatus = (typeof ORDER_STATUSES)[number];

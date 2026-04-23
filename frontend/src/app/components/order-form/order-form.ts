@@ -25,30 +25,61 @@ export class OrderFormComponent implements OnChanges {
   @Output() adicionarCoifa = new EventEmitter<void>();
 
   statuses = ORDER_STATUSES;
+  dataPedidoEditavel = false;
 
   form: FormGroup = this.fb.group({
-    nomCliente:   ['', Validators.required],
-    foneCliente:  ['', Validators.required],
-    foneCliente2: [''],
+    nomCliente:   ['', [Validators.required, Validators.maxLength(30)]],
+    foneCliente:  ['', [Validators.required, Validators.pattern(/^\(\d{2}\) \d{4,5}-\d{4}$/)]],
+    foneCliente2: ['', Validators.pattern(/^\(\d{2}\) \d{4,5}-\d{4}$/)],
     obsPedido:    [''],
-    dataPedido:   ['', Validators.required],
+    dataPedido:   [this.todayStr(), Validators.required],
     dataEntrega:  ['', Validators.required],
     statusPedido: ['NAO_INICIADO', Validators.required],
-    preco:        [0, [Validators.required, Validators.min(0)]]
+    preco:        [0, [Validators.required, Validators.min(0)]],
+    pago:         [false]
   });
 
   get isEditing(): boolean {
     return this.selectedOrder !== null && this.selectedOrder.idPedido !== undefined;
   }
 
+  get showPagoCheckbox(): boolean {
+    const status = this.form.get('statusPedido')?.value;
+    return ['NAO_INICIADO', 'PRODUZIDO', 'INSTALADO'].includes(status);
+  }
+
+  get nomClienteLength(): number {
+    return this.form.get('nomCliente')?.value?.length ?? 0;
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedOrder']) {
+      this.dataPedidoEditavel = false;
       if (this.selectedOrder) {
         this.form.patchValue(this.selectedOrder);
+        this.formatPhoneControls();
       } else {
-        this.form.reset({ statusPedido: 'NAO_INICIADO', preco: 0 });
+        this.form.reset({ statusPedido: 'NAO_INICIADO', preco: 0, dataPedido: this.todayStr() });
       }
     }
+  }
+
+  onPhoneInput(event: Event, controlName: string): void {
+    const input = event.target as HTMLInputElement;
+    const formatted = this.applyPhoneMask(input.value);
+    this.form.get(controlName)?.setValue(formatted, { emitEvent: false });
+    input.value = formatted;
+  }
+
+  formatDateDisplay(dateStr: string): string {
+    if (!dateStr) return '';
+    const parts = dateStr.split('T')[0].split('-');
+    if (parts.length !== 3) return dateStr;
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+  }
+
+  onDataSelecionada(): void {
+    this.dataPedidoEditavel = false;
   }
 
   onSubmit(): void {
@@ -90,5 +121,24 @@ export class OrderFormComponent implements OnChanges {
   isInvalid(field: string): boolean {
     const control = this.form.get(field);
     return !!(control?.invalid && control?.touched);
+  }
+
+  private todayStr(): string {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  private applyPhoneMask(value: string): string {
+    const digits = value.replace(/\D/g, '').slice(0, 11);
+    if (digits.length <= 2)  return digits;
+    if (digits.length <= 7)  return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+  }
+
+  private formatPhoneControls(): void {
+    ['foneCliente', 'foneCliente2'].forEach(ctrl => {
+      const val = this.form.get(ctrl)?.value;
+      if (val) this.form.get(ctrl)?.setValue(this.applyPhoneMask(val), { emitEvent: false });
+    });
   }
 }

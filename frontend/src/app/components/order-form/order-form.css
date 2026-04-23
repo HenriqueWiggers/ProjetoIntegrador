@@ -35,6 +35,47 @@ label {
   letter-spacing: 0.5px;
 }
 
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.char-count {
+  font-size: 11px;
+  font-weight: 400;
+  color: #55557a;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.char-count.char-limit {
+  color: #f87171;
+}
+
+.pago-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4ade80;
+}
+
+.pago-checkbox input[type='checkbox'] {
+  width: 15px;
+  height: 15px;
+  accent-color: #4ade80;
+  cursor: pointer;
+  padding: 0;
+  background: unset;
+  border: unset;
+}
+
 input,
 select,
 textarea {
@@ -62,6 +103,38 @@ select.invalid {
 
 textarea {
   resize: vertical;
+}
+
+.date-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #2a2a3e;
+  border: 1px solid #3a3a55;
+  border-radius: 6px;
+  color: #e0e0f0;
+  font-size: 14px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+}
+
+.date-display.invalid {
+  border-color: #f87171;
+}
+
+.btn-edit-date {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: #55557a;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.btn-edit-date:hover {
+  color: #4f8ef7;
 }
 
 .error {
