@@ -1,14 +1,77 @@
-.coifa-container {
-  padding: 32px;
-  max-width: 700px;
+/* ── Layout geral ────────────────────────────────────────────────────────────── */
+
+.coifa-layout {
+  display: flex;
+  height: 100%;
+  padding: 28px 32px;
+  gap: 28px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* ── Painel do formulário (esquerdo) ─────────────────────────────────────────── */
+
+.coifa-panel-form {
+  width: 300px;
+  min-width: 280px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.coifa-panel-form::-webkit-scrollbar {
+  width: 4px;
+}
+.coifa-panel-form::-webkit-scrollbar-thumb {
+  background: #2e2e4a;
+  border-radius: 4px;
+}
+
+/* ── Painel do viewer (direito) ──────────────────────────────────────────────── */
+
+.coifa-panel-viewer {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.viewer-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.viewer-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #6060a0;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.viewer-hint {
+  font-size: 11px;
+  color: #3a3a5a;
   font-family: 'Calibri', 'Segoe UI', sans-serif;
 }
+
+.viewer-wrap {
+  flex: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #1e1e32;
+  min-height: 400px;
+}
+
+/* ── Cabeçalho ───────────────────────────────────────────────────────────────── */
 
 .coifa-header {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 8px;
+  gap: 14px;
+  margin-bottom: 6px;
 }
 
 .btn-voltar {
@@ -24,6 +87,7 @@
   padding: 6px 12px;
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s;
+  white-space: nowrap;
 }
 
 .btn-voltar:hover {
@@ -32,80 +96,88 @@
 }
 
 .coifa-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #e0e0f0;
   margin: 0;
+  white-space: nowrap;
 }
 
 .coifa-subtitle {
-  font-size: 13px;
-  color: #7070a0;
-  margin-bottom: 32px;
+  font-size: 12px;
+  color: #6060a0;
+  margin-bottom: 24px;
+  line-height: 1.5;
 }
+
+/* ── Cards de dimensão ───────────────────────────────────────────────────────── */
 
 .dimension-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 32px;
+  gap: 10px;
+  margin-bottom: 24px;
 }
 
 .dimension-card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
   background: #252538;
   border: 1px solid #2e2e42;
   border-radius: 10px;
-  padding: 20px 16px;
+  padding: 16px 12px;
 }
 
 .dimension-icon {
-  font-size: 22px;
+  font-size: 20px;
   color: #4f8ef7;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .dimension-icon.axis {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
 }
 
+/* ── Seção bocal ─────────────────────────────────────────────────────────────── */
+
 .bocal-section {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .bocal-title {
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
-  color: #7070a0;
+  color: #6060a0;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
-  margin-bottom: 12px;
+  letter-spacing: 0.7px;
+  margin-bottom: 10px;
 }
 
 .bocal-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 10px;
 }
 
+/* ── Inputs e labels ─────────────────────────────────────────────────────────── */
+
 label {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  color: #a0a0c0;
+  color: #9090b8;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 input {
-  padding: 8px 12px;
+  padding: 7px 10px;
   background: #1e1e2e;
   border: 1px solid #3a3a55;
   border-radius: 6px;
   color: #e0e0f0;
-  font-size: 15px;
+  font-size: 14px;
   font-family: 'Calibri', 'Segoe UI', sans-serif;
   outline: none;
   transition: border-color 0.2s;
@@ -120,9 +192,11 @@ input.invalid {
 }
 
 .error {
-  font-size: 11px;
+  font-size: 10px;
   color: #f87171;
 }
+
+/* ── Ações ───────────────────────────────────────────────────────────────────── */
 
 .form-actions {
   display: flex;
@@ -130,10 +204,10 @@ input.invalid {
 }
 
 .btn {
-  padding: 10px 28px;
+  padding: 10px 24px;
   border: none;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   font-family: 'Calibri', 'Segoe UI', sans-serif;
   cursor: pointer;

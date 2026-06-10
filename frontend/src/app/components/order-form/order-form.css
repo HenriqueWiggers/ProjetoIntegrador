@@ -185,6 +185,10 @@ textarea {
   font-family: 'Calibri', 'Segoe UI', sans-serif;
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
 }
 
 .btn-coifa:hover {
