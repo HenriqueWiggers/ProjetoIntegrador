@@ -1,9 +1,16 @@
+/* ── Host ────────────────────────────────────────────────────────────────────── */
+
+:host {
+  display: block;
+  width: 100%;
+}
+
 /* ── Layout geral ────────────────────────────────────────────────────────────── */
 
 .coifa-layout {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  align-items: start;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 24px;
   padding: 24px 28px;
   box-sizing: border-box;
@@ -12,13 +19,15 @@
 /* ── Painel do formulário (esquerdo) ─────────────────────────────────────────── */
 
 .coifa-panel-form {
-  min-width: 0;
+  flex: 0 0 260px;
+  width: 260px;
   padding-right: 4px;
 }
 
 /* ── Painel do viewer (direito) ──────────────────────────────────────────────── */
 
 .coifa-panel-viewer {
+  flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
