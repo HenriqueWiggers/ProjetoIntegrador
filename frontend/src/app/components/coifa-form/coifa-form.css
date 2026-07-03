@@ -1,28 +1,24 @@
 /* ── Layout geral ────────────────────────────────────────────────────────────── */
 
 .coifa-layout {
-  display: flex;
-  align-items: flex-start;
-  min-height: 100%;
-  padding: 28px 32px;
-  gap: 28px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  align-items: start;
+  gap: 24px;
+  padding: 24px 28px;
   box-sizing: border-box;
 }
 
 /* ── Painel do formulário (esquerdo) ─────────────────────────────────────────── */
 
 .coifa-panel-form {
-  width: 300px;
-  min-width: 280px;
-  flex-shrink: 0;
+  min-width: 0;
   padding-right: 4px;
 }
 
 /* ── Painel do viewer (direito) ──────────────────────────────────────────────── */
 
 .coifa-panel-viewer {
-  flex: 0 0 440px;
-  max-width: 440px;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -50,7 +46,9 @@
 }
 
 .viewer-wrap {
-  height: 500px;
+  width: 100%;
+  max-width: 440px;
+  height: 460px;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid #1e1e32;
