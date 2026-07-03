@@ -18,7 +18,9 @@
     }
     @if (currentView() === 'coifa') {
       <app-coifa-form
+        [selectedOrder]="selectedOrder()"
         (voltar)="onVoltarParaPedidos()"
+        (coifaSalva)="onCoifaSalva()"
       />
     }
   </main>

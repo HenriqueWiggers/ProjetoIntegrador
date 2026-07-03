@@ -2,9 +2,12 @@ package com.br.projeto_integrador.services;
 
 import com.br.projeto_integrador.exceptions.RecursoNãoEncontradoException;
 import com.br.projeto_integrador.models.Coifa;
+import com.br.projeto_integrador.models.Pedido;
 import com.br.projeto_integrador.repositories.CoifaRepository;
+import com.br.projeto_integrador.repositories.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +16,9 @@ public class CoifaService {
 
     @Autowired
     private CoifaRepository repository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     public Coifa findById(Long id){
         return repository.findById(id).orElseThrow(()-> new RecursoNãoEncontradoException("Recurso não localizado com esse ID"));
@@ -26,7 +32,11 @@ public class CoifaService {
         return objs;
     }
 
+    @Transactional
     public void inserirCoifa(Coifa coifa){
+        Pedido pedido = pedidoRepository.findById(coifa.getPedido().getIdPedido())
+                .orElseThrow(() -> new RecursoNãoEncontradoException("Pedido não localizado com esse ID"));
+        coifa.setPedido(pedido);
         repository.save(coifa);
     }
 
@@ -35,6 +45,8 @@ public class CoifaService {
         obj.setAltura(coifa.getAltura());
         obj.setLargura(coifa.getLargura());
         obj.setComprimento(coifa.getComprimento());
+        obj.setBocaLargura(coifa.getBocaLargura());
+        obj.setBocaProfundidade(coifa.getBocaProfundidade());
         obj.setBocalPosX(coifa.getBocalPosX());
         obj.setBocalPosY(coifa.getBocalPosY());
 

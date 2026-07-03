@@ -1,6 +1,7 @@
 package com.br.projeto_integrador.models;
 
 import com.br.projeto_integrador.models.enums.StatusPedido;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -26,7 +27,8 @@ public class Pedido implements Serializable {
     private Double preco;
 
 
-    @OneToOne(mappedBy = "pedido" , cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("pedido")
     private Coifa coifa;
 
     public Pedido() {

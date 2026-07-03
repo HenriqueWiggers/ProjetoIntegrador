@@ -12,13 +12,20 @@
         </svg>
         Voltar
       </button>
-      <h2 class="coifa-title">Adicionar Coifa</h2>
+      <div class="coifa-title-block">
+        <h2 class="coifa-title">Coifa</h2>
+        @if (pedidoNome) {
+          <span class="coifa-pedido-tag">{{ pedidoNome }}</span>
+        }
+      </div>
     </div>
 
-    <p class="coifa-subtitle">Informe as dimensões e a posição do bocal em centímetros.</p>
+    <p class="coifa-subtitle">Informe as dimensões em centímetros.</p>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="coifa-form">
+    <form [formGroup]="form" (ngSubmit)="onSalvar()" class="coifa-form">
 
+      <!-- Dimensões da base -->
+      <h3 class="section-label">Base</h3>
       <div class="dimension-grid">
 
         <div class="dimension-card">
@@ -27,67 +34,100 @@
           <input id="altura" type="number" formControlName="altura"
                  placeholder="Ex: 90" min="1"
                  [class.invalid]="isInvalid('altura')" />
-          @if (isInvalid('altura')) {
-            <span class="error">Informe a altura.</span>
-          }
+          @if (isInvalid('altura')) { <span class="error">Informe a altura.</span> }
         </div>
 
         <div class="dimension-card">
           <div class="dimension-icon">↔</div>
           <label for="largura">Largura (cm) *</label>
           <input id="largura" type="number" formControlName="largura"
-                 placeholder="Ex: 60" min="1"
+                 placeholder="Ex: 80" min="1"
                  [class.invalid]="isInvalid('largura')" />
-          @if (isInvalid('largura')) {
-            <span class="error">Informe a largura.</span>
-          }
+          @if (isInvalid('largura')) { <span class="error">Informe a largura.</span> }
         </div>
 
         <div class="dimension-card">
           <div class="dimension-icon">⇔</div>
           <label for="profundidade">Profundidade (cm) *</label>
           <input id="profundidade" type="number" formControlName="profundidade"
-                 placeholder="Ex: 50" min="1"
+                 placeholder="Ex: 60" min="1"
                  [class.invalid]="isInvalid('profundidade')" />
-          @if (isInvalid('profundidade')) {
-            <span class="error">Informe a profundidade.</span>
-          }
+          @if (isInvalid('profundidade')) { <span class="error">Informe a profundidade.</span> }
         </div>
 
       </div>
 
-      <div class="bocal-section">
-        <h3 class="bocal-title">Posição do Bocal</h3>
-        <div class="bocal-grid">
+      <!-- Dimensões da abertura superior -->
+      <h3 class="section-label">Abertura Superior (Boca)</h3>
+      <div class="bocal-grid">
 
-          <div class="dimension-card">
-            <div class="dimension-icon axis">X</div>
-            <label for="bocaX">Posição X (cm) *</label>
-            <input id="bocaX" type="number" formControlName="bocaX"
-                   placeholder="Ex: 0" min="0"
-                   [class.invalid]="isInvalid('bocaX')" />
-            @if (isInvalid('bocaX')) {
-              <span class="error">Informe a posição X.</span>
-            }
-          </div>
-
-          <div class="dimension-card">
-            <div class="dimension-icon axis">Y</div>
-            <label for="bocaY">Posição Y (cm) *</label>
-            <input id="bocaY" type="number" formControlName="bocaY"
-                   placeholder="Ex: 0" min="0"
-                   [class.invalid]="isInvalid('bocaY')" />
-            @if (isInvalid('bocaY')) {
-              <span class="error">Informe a posição Y.</span>
-            }
-          </div>
-
+        <div class="dimension-card">
+          <div class="dimension-icon">↔</div>
+          <label for="bocaLargura">Largura (cm) *</label>
+          <input id="bocaLargura" type="number" formControlName="bocaLargura"
+                 placeholder="Ex: 20" min="1"
+                 [class.invalid]="isInvalid('bocaLargura')" />
+          @if (isInvalid('bocaLargura')) { <span class="error">Informe a largura.</span> }
         </div>
+
+        <div class="dimension-card">
+          <div class="dimension-icon">⇔</div>
+          <label for="bocaProfundidade">Profundidade (cm) *</label>
+          <input id="bocaProfundidade" type="number" formControlName="bocaProfundidade"
+                 placeholder="Ex: 20" min="1"
+                 [class.invalid]="isInvalid('bocaProfundidade')" />
+          @if (isInvalid('bocaProfundidade')) { <span class="error">Informe a profundidade.</span> }
+        </div>
+
       </div>
 
+      <!-- Posição da boca (corner-based) -->
+      <h3 class="section-label">Posição da Boca
+        <span class="section-hint">— a partir do canto traseiro esquerdo</span>
+      </h3>
+      <div class="bocal-grid">
+
+        <div class="dimension-card">
+          <div class="dimension-icon axis">↑</div>
+          <label for="bocaCima">Cima (cm) *</label>
+          <input id="bocaCima" type="number" formControlName="bocaCima"
+                 placeholder="0" min="0"
+                 [class.invalid]="isInvalid('bocaCima')" />
+          @if (isInvalid('bocaCima')) { <span class="error">Informe o valor.</span> }
+        </div>
+
+        <div class="dimension-card">
+          <div class="dimension-icon axis">→</div>
+          <label for="bocaLado">Lado (cm) *</label>
+          <input id="bocaLado" type="number" formControlName="bocaLado"
+                 placeholder="0" min="0"
+                 [class.invalid]="isInvalid('bocaLado')" />
+          @if (isInvalid('bocaLado')) { <span class="error">Informe o valor.</span> }
+        </div>
+
+      </div>
+
+      <!-- Ações -->
       <div class="form-actions">
-        <button type="submit" class="btn btn-salvar">Salvar Dimensões</button>
+        <button
+          type="submit"
+          class="btn btn-salvar"
+          [disabled]="saving || !podeSalvar"
+          [title]="tooltipSalvar"
+        >
+          @if (saving) { Salvando... } @else { Salvar Coifa }
+        </button>
       </div>
+
+      @if (!podeSalvar && selectedOrder !== null) {
+        <p class="save-warning">Salve o pedido antes de adicionar a coifa.</p>
+      }
+      @if (saveError) {
+        <p class="save-error">{{ saveError }}</p>
+      }
+      @if (saveSuccess) {
+        <p class="save-success">Coifa salva com sucesso!</p>
+      }
 
     </form>
   </div>
@@ -96,15 +136,17 @@
   <div class="coifa-panel-viewer">
     <div class="viewer-header">
       <span class="viewer-label">Visualização 3D</span>
-      <span class="viewer-hint">Arraste para rotacionar · Scroll para zoom</span>
+      <span class="viewer-hint">Arraste · Scroll · Clique direito</span>
     </div>
     <div class="viewer-wrap">
       <app-coifa-viewer
         [altura]="alturaValue"
         [largura]="larguraValue"
         [profundidade]="profundidadeValue"
-        [bocaX]="bocaXValue"
-        [bocaY]="bocaYValue"
+        [bocaLargura]="bocaLarguraValue"
+        [bocaProfundidade]="bocaProfundidadeValue"
+        [bocaCima]="bocaCimaValue"
+        [bocaLado]="bocaLadoValue"
       />
     </div>
   </div>

@@ -28,11 +28,13 @@ export class CoifaViewerComponent implements AfterViewInit, OnChanges, OnDestroy
   @ViewChild('container', { static: true })
   private containerRef!: ElementRef<HTMLDivElement>;
 
-  @Input() altura = 0;
-  @Input() largura = 0;
-  @Input() profundidade = 0;
-  @Input() bocaX = 0;
-  @Input() bocaY = 0;
+  @Input() altura           = 0;
+  @Input() largura          = 0;
+  @Input() profundidade     = 0;
+  @Input() bocaLargura      = 0;   // largura da abertura superior
+  @Input() bocaProfundidade = 0;   // profundidade da abertura superior
+  @Input() bocaCima         = 0;   // deslocamento a partir do canto traseiro
+  @Input() bocaLado         = 0;   // deslocamento a partir do canto esquerdo
 
   private zone = inject(NgZone);
 
@@ -134,13 +136,15 @@ export class CoifaViewerComponent implements AfterViewInit, OnChanges, OnDestroy
   private buildModel(): void {
     this.clearModel();
 
-    const h  = +this.altura       || 0;
-    const w  = +this.largura      || 0;
-    const dp = +this.profundidade || 0;
-    const ox = +this.bocaX        || 0;
-    const oy = +this.bocaY        || 0;
+    const h  = +this.altura           || 0;
+    const w  = +this.largura          || 0;
+    const dp = +this.profundidade     || 0;
+    const bL = +this.bocaLargura      || 0;
+    const bP = +this.bocaProfundidade || 0;
+    const cima = +this.bocaCima       || 0;
+    const lado = +this.bocaLado       || 0;
 
-    if (h <= 0 || w <= 0 || dp <= 0) {
+    if (h <= 0 || w <= 0 || dp <= 0 || bL <= 0 || bP <= 0) {
       this.emptyOverlay.style.display = 'flex';
       return;
     }
@@ -149,9 +153,14 @@ export class CoifaViewerComponent implements AfterViewInit, OnChanges, OnDestroy
 
     const bW = w / 2;
     const bD = dp / 2;
-    // Top opening: standard duct size capped at 40% of base dimension
-    const tW = Math.min(10, w * 0.2);
-    const tD = Math.min(10, dp * 0.2);
+    // Abertura superior usa as dimensões fornecidas
+    const tW = bL / 2;
+    const tD = bP / 2;
+
+    // Posicionamento corner-based:
+    // lado=0, cima=0 → canto traseiro-esquerdo da boca alinha com canto da base
+    const ox = -bW + tW + lado;
+    const oy = -bD + tD + cima;
 
     const verts: THREE.Vector3[] = [
       v3(-bW,  0, -bD),             // 0 b0 back-left
@@ -362,7 +371,10 @@ export class CoifaViewerComponent implements AfterViewInit, OnChanges, OnDestroy
     this.camera.updateProjectionMatrix();
     this.camera.lookAt(center);
     this.controls.target.copy(center);
+    // Disable damping so update() clears any residual drag delta before re-enabling
+    this.controls.enableDamping = false;
     this.controls.update();
+    this.controls.enableDamping = true;
   }
 
   // ── Render loop ──────────────────────────────────────────────────────────────

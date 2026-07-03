@@ -2,10 +2,10 @@
 
 .coifa-layout {
   display: flex;
-  height: 100%;
+  align-items: flex-start;
+  min-height: 100%;
   padding: 28px 32px;
   gap: 28px;
-  overflow: hidden;
   box-sizing: border-box;
 }
 
@@ -15,22 +15,14 @@
   width: 300px;
   min-width: 280px;
   flex-shrink: 0;
-  overflow-y: auto;
   padding-right: 4px;
-}
-
-.coifa-panel-form::-webkit-scrollbar {
-  width: 4px;
-}
-.coifa-panel-form::-webkit-scrollbar-thumb {
-  background: #2e2e4a;
-  border-radius: 4px;
 }
 
 /* ── Painel do viewer (direito) ──────────────────────────────────────────────── */
 
 .coifa-panel-viewer {
-  flex: 1;
+  flex: 0 0 440px;
+  max-width: 440px;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -58,11 +50,10 @@
 }
 
 .viewer-wrap {
-  flex: 1;
+  height: 500px;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid #1e1e32;
-  min-height: 400px;
 }
 
 /* ── Cabeçalho ───────────────────────────────────────────────────────────────── */
@@ -72,6 +63,26 @@
   align-items: center;
   gap: 14px;
   margin-bottom: 6px;
+}
+
+.coifa-title-block {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.coifa-pedido-tag {
+  font-size: 11px;
+  color: #4f8ef7;
+  background: rgba(79, 142, 247, 0.12);
+  border: 1px solid rgba(79, 142, 247, 0.25);
+  border-radius: 4px;
+  padding: 2px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
 }
 
 .btn-voltar {
@@ -140,25 +151,33 @@
   font-weight: 700;
 }
 
-/* ── Seção bocal ─────────────────────────────────────────────────────────────── */
+/* ── Seções ──────────────────────────────────────────────────────────────────── */
 
-.bocal-section {
-  margin-bottom: 24px;
-}
-
-.bocal-title {
+.section-label {
   font-size: 11px;
   font-weight: 700;
   color: #6060a0;
   text-transform: uppercase;
   letter-spacing: 0.7px;
   margin-bottom: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.section-hint {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #3a3a5a;
+  font-size: 10px;
 }
 
 .bocal-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+  margin-bottom: 24px;
 }
 
 /* ── Inputs e labels ─────────────────────────────────────────────────────────── */
@@ -221,6 +240,29 @@ input.invalid {
 .btn-salvar {
   background: #4f8ef7;
   color: #fff;
+}
+
+.btn-salvar:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.save-warning {
+  font-size: 11px;
+  color: #f0a040;
+  margin-top: 8px;
+}
+
+.save-error {
+  font-size: 11px;
+  color: #f87171;
+  margin-top: 8px;
+}
+
+.save-success {
+  font-size: 11px;
+  color: #4ade80;
+  margin-top: 8px;
 }
 
 input[type='number']::-webkit-inner-spin-button {

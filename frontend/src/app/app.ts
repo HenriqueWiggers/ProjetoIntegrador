@@ -24,7 +24,14 @@ export class App implements OnInit {
 
   loadOrders(): void {
     this.orderService.getAllOrders().subscribe({
-      next: (data) => this.orders.set(data),
+      next: (data) => {
+        this.orders.set(data);
+        const current = this.selectedOrder();
+        if (current?.idPedido) {
+          const updated = data.find(o => o.idPedido === current.idPedido);
+          if (updated) this.selectedOrder.set(updated);
+        }
+      },
       error: (err) => console.error('Erro ao carregar pedidos', err)
     });
   }
@@ -40,11 +47,16 @@ export class App implements OnInit {
 
   onNavigateToCoifa(): void {
     this.currentView.set('coifa');
-    this.selectedOrder.set(null);
+    // mantém selectedOrder para a CoifaFormComponent poder salvar e pré-popular
   }
 
   onVoltarParaPedidos(): void {
     this.currentView.set('pedidos');
+  }
+
+  onCoifaSalva(): void {
+    // recarrega os pedidos para obter o dado de coifa atualizado
+    this.loadOrders();
   }
 
   onSaveOrder(order: Order): void {
