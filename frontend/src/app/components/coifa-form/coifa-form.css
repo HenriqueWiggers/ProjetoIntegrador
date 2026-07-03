@@ -5,29 +5,32 @@
   width: 100%;
 }
 
-/* ── Layout geral ────────────────────────────────────────────────────────────── */
+/* ── Layout geral: duas colunas lado a lado ──────────────────────────────────── */
 
 .coifa-layout {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
   gap: 24px;
   padding: 24px 28px;
   box-sizing: border-box;
 }
 
-/* ── Painel do formulário (esquerdo) ─────────────────────────────────────────── */
-
-.coifa-panel-form {
-  flex: 0 0 260px;
-  width: 260px;
-  padding-right: 4px;
+@media (max-width: 800px) {
+  .coifa-layout {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* ── Painel do viewer (direito) ──────────────────────────────────────────────── */
+/* ── Coluna esquerda: formulário ─────────────────────────────────────────────── */
+
+.coifa-panel-form {
+  min-width: 0;
+}
+
+/* ── Coluna direita: visualização 3D ─────────────────────────────────────────── */
 
 .coifa-panel-viewer {
-  flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
@@ -56,8 +59,7 @@
 
 .viewer-wrap {
   width: 100%;
-  max-width: 440px;
-  height: 460px;
+  height: 480px;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid #1e1e32;
