@@ -2,7 +2,7 @@
   <button class="btn-new-order" (click)="onNewOrder()">+ Novo Pedido</button>
 
   <div class="order-list">
-    @for (order of orders; track order.idPedido) {
+    @for (order of pagedOrders; track order.idPedido) {
       <div
         class="order-card"
         [ngClass]="{ selected: isSelected(order) }"
@@ -54,4 +54,12 @@
       <p class="empty-list">Nenhum pedido encontrado.</p>
     }
   </div>
+
+  @if (totalPages > 1) {
+    <div class="pagination">
+      <button class="btn-page" [disabled]="currentPage === 1" (click)="prevPage()">&#8249;</button>
+      <span class="page-info">{{ currentPage }} / {{ totalPages }}</span>
+      <button class="btn-page" [disabled]="currentPage === totalPages" (click)="nextPage()">&#8250;</button>
+    </div>
+  }
 </div>

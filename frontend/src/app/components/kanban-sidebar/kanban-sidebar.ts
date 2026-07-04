@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Order } from '../../models/order.model';
 
@@ -8,13 +8,47 @@ import { Order } from '../../models/order.model';
   templateUrl: './kanban-sidebar.html',
   styleUrl: './kanban-sidebar.css'
 })
-export class KanbanSidebarComponent {
+export class KanbanSidebarComponent implements OnChanges {
   @Input() orders: Order[] = [];
   @Input() selectedOrder: Order | null = null;
 
   @Output() orderSelected = new EventEmitter<Order>();
   @Output() newOrderClicked = new EventEmitter<void>();
   @Output() deleteOrderClicked = new EventEmitter<number>();
+
+  currentPage = 1;
+  readonly pageSize = 10;
+
+  get sortedOrders(): Order[] {
+    return [...this.orders].sort((a, b) => {
+      const da = a.dataPedido ? new Date(a.dataPedido).getTime() : 0;
+      const db = b.dataPedido ? new Date(b.dataPedido).getTime() : 0;
+      return db - da;
+    });
+  }
+
+  get pagedOrders(): Order[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.sortedOrders.slice(start, start + this.pageSize);
+  }
+
+  get totalPages(): number {
+    return Math.max(1, Math.ceil(this.orders.length / this.pageSize));
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['orders']) {
+      this.currentPage = 1;
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) this.currentPage--;
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) this.currentPage++;
+  }
 
   selectOrder(order: Order) {
     this.orderSelected.emit(order);
