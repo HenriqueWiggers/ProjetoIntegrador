@@ -53,6 +53,16 @@ label {
   color: #f87171;
 }
 
+.pago-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.obs-pagamento-group {
+  flex: 1;
+}
+
 .pago-checkbox {
   display: flex;
   align-items: center;

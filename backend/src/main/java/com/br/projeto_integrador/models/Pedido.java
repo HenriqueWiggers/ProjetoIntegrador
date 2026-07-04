@@ -25,7 +25,8 @@ public class Pedido implements Serializable {
     private LocalDate dataEntrega;
     private StatusPedido statusPedido;
     private Double preco;
-
+    private Boolean pago;
+    private String obsPagamento;
 
     @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("pedido")
@@ -116,6 +117,22 @@ public class Pedido implements Serializable {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    public Boolean getPago() {
+        return pago;
+    }
+
+    public void setPago(Boolean pago) {
+        this.pago = pago;
+    }
+
+    public String getObsPagamento() {
+        return obsPagamento;
+    }
+
+    public void setObsPagamento(String obsPagamento) {
+        this.obsPagamento = obsPagamento;
     }
 
     public Coifa getCoifa() {

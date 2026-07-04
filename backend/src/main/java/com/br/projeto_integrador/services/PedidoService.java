@@ -41,6 +41,8 @@ public class PedidoService {
         obj.setDataEntrega(pedido.getDataEntrega());
         obj.setStatusPedido(pedido.getStatusPedido());
         obj.setPreco(pedido.getPreco());
+        obj.setPago(pedido.getPago());
+        obj.setObsPagamento(pedido.getObsPagamento());
 
         repository.save(obj);
     }

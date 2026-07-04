@@ -9,6 +9,7 @@ export interface Order {
   statusPedido: string;
   preco: number;
   pago?: boolean;
+  obsPagamento?: string;
   coifa?: any;
 }
 

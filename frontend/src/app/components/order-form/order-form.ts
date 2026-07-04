@@ -38,7 +38,8 @@ export class OrderFormComponent implements OnChanges {
     dataEntrega:  [''],
     statusPedido: ['NAO_INICIADO', Validators.required],
     preco:        [0, [Validators.required, Validators.min(0)]],
-    pago:         [false]
+    pago:         [false],
+    obsPagamento: ['']
   });
 
   get isEditing(): boolean {

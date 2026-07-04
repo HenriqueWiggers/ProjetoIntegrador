@@ -81,12 +81,6 @@
             <option [value]="status">{{ statusLabel(status) }}</option>
           }
         </select>
-        @if (showPagoCheckbox) {
-          <label class="pago-checkbox">
-            <input type="checkbox" formControlName="pago" />
-            <span>Pago</span>
-          </label>
-        }
       </div>
 
       <div class="form-group">
@@ -96,6 +90,20 @@
         @if (isInvalid('preco')) {
           <span class="error">Informe um preço válido.</span>
         }
+      </div>
+    </div>
+
+    <div class="form-row pago-row">
+      @if (showPagoCheckbox) {
+        <label class="pago-checkbox">
+          <input type="checkbox" formControlName="pago" />
+          <span>Pago</span>
+        </label>
+      }
+      <div class="form-group obs-pagamento-group">
+        <label for="obsPagamento">Obs. Pagamento</label>
+        <input id="obsPagamento" type="text" formControlName="obsPagamento"
+               placeholder="Ex: Pago parcialmente, aguardando restante..." />
       </div>
     </div>
 

@@ -76,6 +76,13 @@
   flex: 1;
 }
 
+.obs-pag-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: #f5c518;
+}
+
 .btn-delete {
   display: flex;
   align-items: center;
