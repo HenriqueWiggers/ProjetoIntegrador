@@ -17,6 +17,7 @@ export class App implements OnInit {
   orders = signal<Order[]>([]);
   selectedOrder = signal<Order | null>(null);
   currentView = signal<'pedidos' | 'coifa'>('pedidos');
+  orderFormResetKey = signal(0);
 
   ngOnInit(): void {
     this.loadOrders();
@@ -25,10 +26,11 @@ export class App implements OnInit {
   loadOrders(): void {
     this.orderService.getAllOrders().subscribe({
       next: (data) => {
-        this.orders.set(data);
+        const sorted = data.sort((a, b) => (b.idPedido ?? 0) - (a.idPedido ?? 0));
+        this.orders.set(sorted);
         const current = this.selectedOrder();
         if (current?.idPedido) {
-          const updated = data.find(o => o.idPedido === current.idPedido);
+          const updated = sorted.find(o => o.idPedido === current.idPedido);
           if (updated) this.selectedOrder.set(updated);
         }
       },
@@ -69,7 +71,7 @@ export class App implements OnInit {
       this.orderService.createOrder(order).subscribe({
         next: () => {
           this.loadOrders();
-          this.selectedOrder.set(null);
+          this.orderFormResetKey.update(v => v + 1);
         },
         error: (err) => console.error('Erro ao criar pedido', err)
       });

@@ -11,6 +11,7 @@
     @if (currentView() === 'pedidos') {
       <app-order-form
         [selectedOrder]="selectedOrder()"
+        [resetKey]="orderFormResetKey()"
         (saveOrder)="onSaveOrder($event)"
         (deleteOrder)="onDeleteOrder($event)"
         (adicionarCoifa)="onNavigateToCoifa()"

@@ -199,3 +199,13 @@ textarea {
 input[type='number']::-webkit-inner-spin-button {
   opacity: 0.5;
 }
+
+.save-success {
+  margin-top: 12px;
+  font-size: 13px;
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  border-radius: 6px;
+  padding: 8px 12px;
+}

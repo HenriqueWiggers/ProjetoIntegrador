@@ -20,12 +20,14 @@ export class OrderFormComponent implements OnChanges {
   private fb = inject(FormBuilder);
 
   @Input() selectedOrder: Order | null = null;
+  @Input() resetKey: number = 0;
   @Output() saveOrder = new EventEmitter<Order>();
   @Output() deleteOrder = new EventEmitter<number>();
   @Output() adicionarCoifa = new EventEmitter<void>();
 
   statuses = ORDER_STATUSES;
   dataPedidoEditavel = false;
+  savedSuccess = false;
 
   form: FormGroup = this.fb.group({
     nomCliente:   ['', [Validators.required, Validators.maxLength(30)]],
@@ -53,15 +55,27 @@ export class OrderFormComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['resetKey'] && !changes['resetKey'].firstChange) {
+      this.resetForm();
+      this.savedSuccess = true;
+      setTimeout(() => { this.savedSuccess = false; }, 3500);
+      return;
+    }
     if (changes['selectedOrder']) {
       this.dataPedidoEditavel = false;
+      this.savedSuccess = false;
       if (this.selectedOrder) {
         this.form.patchValue(this.selectedOrder);
         this.formatPhoneControls();
       } else {
-        this.form.reset({ statusPedido: 'NAO_INICIADO', preco: 0, dataPedido: this.todayStr() });
+        this.resetForm();
       }
     }
+  }
+
+  private resetForm(): void {
+    this.form.reset({ statusPedido: 'NAO_INICIADO', preco: 0, dataPedido: this.todayStr() });
+    this.dataPedidoEditavel = false;
   }
 
   onPhoneInput(event: Event, controlName: string): void {
