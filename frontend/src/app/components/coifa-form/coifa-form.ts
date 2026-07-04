@@ -85,7 +85,12 @@ export class CoifaFormComponent implements OnChanges {
           bocaCima:         coifa.bocalPosY        ?? 0,
         });
       } else {
-        this.form.reset();
+        this.form.reset({
+          bocaLargura:      10,
+          bocaProfundidade: 10,
+          bocaCima:         0,
+          bocaLado:         0,
+        });
       }
     }
   }

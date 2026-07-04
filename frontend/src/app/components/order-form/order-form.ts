@@ -33,7 +33,7 @@ export class OrderFormComponent implements OnChanges {
     foneCliente2: ['', Validators.pattern(/^\(\d{2}\) \d{4,5}-\d{4}$/)],
     obsPedido:    [''],
     dataPedido:   [this.todayStr(), Validators.required],
-    dataEntrega:  ['', Validators.required],
+    dataEntrega:  [''],
     statusPedido: ['NAO_INICIADO', Validators.required],
     preco:        [0, [Validators.required, Validators.min(0)]],
     pago:         [false]
