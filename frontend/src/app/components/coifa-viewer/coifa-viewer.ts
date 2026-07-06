@@ -287,19 +287,24 @@ export class CoifaViewerComponent implements AfterViewInit, OnChanges, OnDestroy
       this.label(mid, `${len.toFixed(1)} cm`, '#ffcc88');
     });
 
-    // Extensão de cada face pelo meio: liga o meio do lado da base de baixo
-    // ao meio do lado correspondente da base de cima (boca), sem passar
-    // pelos cantos — dá o comprimento de cada face sem ser pela diagonal.
-    const faceMidPairs: [THREE.Vector3, THREE.Vector3][] = [
-      [b0.clone().lerp(b1, 0.5), t0.clone().lerp(t1, 0.5)], // face de trás
-      [b1.clone().lerp(b2, 0.5), t1.clone().lerp(t2, 0.5)], // face direita
-      [b2.clone().lerp(b3, 0.5), t2.clone().lerp(t3, 0.5)], // face da frente
-      [b3.clone().lerp(b0, 0.5), t3.clone().lerp(t0, 0.5)], // face esquerda
+    // Extensão de cada face: parte do meio do lado da base de cima (boca) e
+    // desce em linha reta até a linha do lado correspondente da base de
+    // baixo, no ponto mais próximo dela — não necessariamente no centro
+    // desse lado de baixo.
+    const faceMidPairs: [THREE.Vector3, THREE.Vector3, THREE.Vector3][] = [
+      [b0, b1, t0.clone().lerp(t1, 0.5)], // face de trás
+      [b1, b2, t1.clone().lerp(t2, 0.5)], // face direita
+      [b2, b3, t2.clone().lerp(t3, 0.5)], // face da frente
+      [b3, b0, t3.clone().lerp(t0, 0.5)], // face esquerda
     ];
-    faceMidPairs.forEach(([from, to]) => {
-      this.seg(from, to, 0x30d0c0);
-      const mid = from.clone().lerp(to, 0.5);
-      this.label(mid, `${from.distanceTo(to).toFixed(1)} cm`, '#7de8da');
+    faceMidPairs.forEach(([bottomA, bottomB, topMid]) => {
+      const dir = bottomB.clone().sub(bottomA).normalize();
+      const proj = topMid.clone().sub(bottomA).dot(dir);
+      const foot = bottomA.clone().add(dir.clone().multiplyScalar(proj));
+
+      this.seg(topMid, foot, 0x30d0c0);
+      const mid = topMid.clone().lerp(foot, 0.5);
+      this.label(mid, `${topMid.distanceTo(foot).toFixed(1)} cm`, '#7de8da');
     });
   }
 
