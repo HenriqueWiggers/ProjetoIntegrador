@@ -287,16 +287,27 @@ export class CoifaViewerComponent implements AfterViewInit, OnChanges, OnDestroy
       this.label(mid, `${len.toFixed(1)} cm`, '#ffcc88');
     });
 
-    // Diagonal da face frontal (canto frontal-esquerdo da base até o canto
-    // frontal-direito do topo): o cálculo usa esses dois pontos, mas a cota é
-    // desenhada como uma linha reta e horizontal sobre a base, deslocada do
-    // vértice, em vez de seguir a inclinação da face.
-    const diagLen = b3.distanceTo(t2);
-    const gap = Math.max(6, G * 0.12);
-    const runLen = Math.max(20, Math.abs(t2.x - b3.x) * 0.6);
-    const hFrom = v3(b3.x + gap, 0, b3.z);
-    const hTo = v3(hFrom.x + runLen, 0, b3.z);
-    this.cota(hFrom, hTo, v3(0, 0, 0), `${diagLen.toFixed(1)} cm`);
+    // Diagonal da face frontal: canto frontal-esquerdo da base até o canto
+    // frontal-direito do topo. Não corresponde a uma aresta já desenhada do
+    // sólido, por isso a linha é traçada aqui junto com a cota.
+    this.seg(b3, t2, 0x5090f8);
+    const diagMid = b3.clone().lerp(t2, 0.5);
+    this.label(diagMid, `${b3.distanceTo(t2).toFixed(1)} cm`, '#ffcc88');
+
+    // Extensão de cada face pelo meio: liga o meio do lado da base de baixo
+    // ao meio do lado correspondente da base de cima (boca), sem passar
+    // pelos cantos — dá o comprimento de cada face sem ser pela diagonal.
+    const faceMidPairs: [THREE.Vector3, THREE.Vector3][] = [
+      [b0.clone().lerp(b1, 0.5), t0.clone().lerp(t1, 0.5)], // face de trás
+      [b1.clone().lerp(b2, 0.5), t1.clone().lerp(t2, 0.5)], // face direita
+      [b2.clone().lerp(b3, 0.5), t2.clone().lerp(t3, 0.5)], // face da frente
+      [b3.clone().lerp(b0, 0.5), t3.clone().lerp(t0, 0.5)], // face esquerda
+    ];
+    faceMidPairs.forEach(([from, to]) => {
+      this.seg(from, to, 0x30d0c0);
+      const mid = from.clone().lerp(to, 0.5);
+      this.label(mid, `${from.distanceTo(to).toFixed(1)} cm`, '#7de8da');
+    });
   }
 
   /**
