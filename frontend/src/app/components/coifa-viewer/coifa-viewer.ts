@@ -285,6 +285,20 @@ export class CoifaViewerComponent implements AfterViewInit, OnChanges, OnDestroy
       const len = from.distanceTo(to);
       const mid = from.clone().lerp(to, 0.5);
       this.label(mid, `${len.toFixed(1)} cm`, '#ffcc88');
+
+      // Distância reta (na vertical) entre a base e a boca nesse canto,
+      // desenhada ao lado da aresta diagonal para não sobrepor a label acima.
+      const straightTop = v3(from.x, to.y, from.z);
+      const outward = v3(from.x, 0, from.z).normalize().multiplyScalar(Math.max(6, G * 0.25));
+      const strFrom = from.clone().add(outward);
+      const strTo = straightTop.clone().add(outward);
+
+      this.seg(from, strFrom, 0xff5555);
+      this.seg(straightTop, strTo, 0xff5555);
+      this.seg(strFrom, strTo, 0xff5555);
+
+      const vMid = strFrom.clone().lerp(strTo, 0.5);
+      this.label(vMid, `${h.toFixed(1)} cm`, '#ff9a9a');
     });
   }
 
