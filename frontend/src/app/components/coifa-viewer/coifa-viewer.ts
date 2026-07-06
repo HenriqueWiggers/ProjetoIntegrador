@@ -286,16 +286,6 @@ export class CoifaViewerComponent implements AfterViewInit, OnChanges, OnDestroy
       const mid = from.clone().lerp(to, 0.5);
       this.label(mid, `${len.toFixed(1)} cm`, '#ffcc88');
     });
-
-    // Comprimento de cada lado da boca (abertura superior), medido reto ao
-    // longo da própria aresta do topo — uma cota flutuando logo acima dela.
-    const topEdgePairs: [THREE.Vector3, THREE.Vector3][] = [
-      [t0, t1], [t1, t2], [t2, t3], [t3, t0],
-    ];
-    const topLift = Math.max(6, G * 0.15);
-    topEdgePairs.forEach(([from, to]) => {
-      this.cota(from, to, v3(0, topLift, 0), `${from.distanceTo(to).toFixed(1)} cm`);
-    });
   }
 
   /**
