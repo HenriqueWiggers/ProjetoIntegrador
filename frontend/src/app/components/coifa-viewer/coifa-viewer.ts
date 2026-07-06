@@ -286,6 +286,13 @@ export class CoifaViewerComponent implements AfterViewInit, OnChanges, OnDestroy
       const mid = from.clone().lerp(to, 0.5);
       this.label(mid, `${len.toFixed(1)} cm`, '#ffcc88');
     });
+
+    // Diagonal da face frontal: canto frontal-esquerdo da base até o canto
+    // frontal-direito do topo. Não corresponde a uma aresta já desenhada do
+    // sólido, por isso a linha é traçada aqui junto com a cota.
+    this.seg(b3, t2, 0x5090f8);
+    const diagMid = b3.clone().lerp(t2, 0.5);
+    this.label(diagMid, `${b3.distanceTo(t2).toFixed(1)} cm`, '#ffcc88');
   }
 
   /**
